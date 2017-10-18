@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Para</string>
+    <string name="expenseCategoryLabel">category:</string>
+    <string name="expenseNameLabel">name:</string>
+    <string name="expenseValueLabel">value:</string>
+    <string name="addExpense">add</string>
+    <string name="expenseDescriptionLabel">description:</string>
+</resources>
