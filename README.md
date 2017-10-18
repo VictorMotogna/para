@@ -11,8 +11,6 @@ If you are the kind of person that likes to see on what you spent money, how muc
 
 You can view, add, edit or delete all your expenses and even store data about where the money went.
 
-Each user will have a profile based on a Facebook login.
-
 ## Technologies used
 
 Android - Java, Android Annotations
