@@ -16,4 +16,3 @@ Each user will have a profile based on a Facebook login.
 ## Technologies used
 
 Android - Java, Android Annotations
-React native
