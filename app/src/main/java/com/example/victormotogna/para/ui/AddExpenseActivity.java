@@ -1,4 +1,4 @@
-package com.example.victormotogna.para;
+package com.example.victormotogna.para.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.victormotogna.para.R;
 import com.example.victormotogna.para.model.Category;
 import com.example.victormotogna.para.model.Expense;
 
@@ -19,6 +20,8 @@ import java.util.Date;
 
 @EActivity(R.layout.activity_add_expense)
 public class AddExpenseActivity extends AppCompatActivity {
+    // TODO: 10/18/17 add view model - respect mvvm
+
     @ViewById(R.id.expenseName)
     EditText expenseName;
 
