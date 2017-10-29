@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "3295126475",
+    "firebase_url": "https://para-1e805.firebaseio.com",
+    "project_id": "para-1e805",
+    "storage_bucket": "para-1e805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3295126475:android:4f037419ec45f094",
+        "android_client_info": {
+          "package_name": "com.example.victormotogna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3295126475-68oqmj5hcmtsd7beh59sunkrvnoms8a6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.victormotogna",
+            "certificate_hash": "6ddeff875d69ba9581df6777971a607444d42eca"
+          }
+        },
+        {
+          "client_id": "3295126475-jte15u453tsgam457kf3gm973l4ss6jh.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "3295126475-390cafkqgbes4qu664aufc7vkda97qvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6YWgrRHrU1KRje5oEiylWyaLWqdAXK4E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

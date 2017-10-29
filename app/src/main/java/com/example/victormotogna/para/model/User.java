@@ -11,10 +11,10 @@ public class User {
     private String password;
     private String phoneNumber;
 
-    public User(String name, String password, String phoneNumber) {
+    public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = email;
     }
 
     public String getName() {
