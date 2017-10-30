@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 
 import com.example.victormotogna.para.R;
 import com.example.victormotogna.para.model.User;
@@ -16,20 +15,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
 
 /**
  * Created by victormotogna on 10/29/17.
  */
 
-@EActivity(R.layout.landing_activity)
+@EActivity(R.layout.activity_landing)
 public class LandingActivity extends AppCompatActivity {
 
     private GoogleApiClient mGoogleApiClient;
-    private int RC_SIGN_IN = 1;
+    private int RC_SIGN_IN = 13;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,9 +71,7 @@ public class LandingActivity extends AppCompatActivity {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
-            byte[] photo = acct.getPhotoUrl().toString().getBytes();
-
-//            goToProfile(new User(acct.getDisplayName(), acct.getEmail(), acct.getEmail());
+            goToProfile(new User(acct.getDisplayName(), acct.getEmail(), acct.getEmail(), acct.getPhotoUrl().toString()));
         } else {
             // could not sign in, restarting activity
             restartActivity();
@@ -86,13 +84,13 @@ public class LandingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void goToProfile(User user) {
-//        Intent intent = new Intent(LandingActivity.this, UserProfileActivity_.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("user", user);
-//        bundle.putString("caller", "GoogleSignIn");
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//        finish();
-//    }
+    public void goToProfile(User user) {
+        Intent intent = new Intent(LandingActivity.this, UserProfileActivity_.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", user);
+        bundle.putString("caller", "GoogleSignIn");
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
 }

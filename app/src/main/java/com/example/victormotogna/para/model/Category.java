@@ -8,6 +8,5 @@ public enum Category {
     FOOD,
     DRINKS,
     FUN,
-    GIFT,
-    EXPENSES
+    OTHER
 }

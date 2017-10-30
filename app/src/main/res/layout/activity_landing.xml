@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/app_name"
+        android:layout_above="@+id/button_google_login"
+        android:textSize="60dp"
+        android:textColor="@color/colorPrimaryLight"
+        android:layout_marginBottom="240dp"
+        android:layout_marginTop="40dp"/>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/signs"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginRight="46dp"-->
+        <!--android:layout_marginLeft="46dp">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_login"-->
+            <!--style="@android:style/Widget.DeviceDefault.Button.Borderless"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="52dp"-->
+            <!--android:text="@string/sign_in"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="18dp"-->
+            <!--android:paddingRight="36dp"-->
+            <!--android:paddingLeft="36dp"-->
+            <!--android:background="@drawable/rounded_button_stroke_light"-->
+            <!--android:layout_marginRight="14dp"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_sign_up"-->
+            <!--style="@android:style/Widget.DeviceDefault.Button.Borderless"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="52dp"-->
+            <!--android:text="@string/sign_up"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="18dp"-->
+            <!--android:paddingRight="36dp"-->
+            <!--android:paddingLeft="36dp"-->
+            <!--android:background="@drawable/rounded_button_fill"-->
+            <!--android:layout_marginLeft="14dp"/>-->
+    <!--</LinearLayout>-->
+
+    <Button
+        android:id="@+id/button_google_login"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:text="@string/sign_in_google"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        android:background="@drawable/rounded_button_fill_white"
+        android:drawableLeft="@drawable/ic_google_g_logo"
+        android:paddingLeft="24dp"/>
+
+</RelativeLayout>

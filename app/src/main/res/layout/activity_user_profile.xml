@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"  android:layout_width="match_parent">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <ImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.25"
+                android:src="@color/colorPrimaryLight"/>
+
+            <Button
+                android:id="@+id/sign_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="12dp"
+                android:text="@string/sign_out"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="230dp"
+                android:textColor="#fff"/>
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="total expense: "
+                android:textSize="28dp"
+                android:textColor="#fff"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/expenseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/expenseNameLabel"
+                android:backgroundTint="@color/colorPrimary"/>
+
+            <EditText
+                android:id="@+id/expenseValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="16dp"
+                android:hint="@string/expenseValueLabel"
+                android:backgroundTint="@color/colorPrimary"/>
+
+            <EditText
+                android:id="@+id/expenseDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/expenseDescriptionLabel"
+                android:backgroundTint="@color/colorPrimary"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/category_food_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="food"
+                    android:background="@drawable/category_button"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <Button
+                    android:id="@+id/category_drinks_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="drinks"
+                    android:background="@drawable/category_button"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <Button
+                    android:id="@+id/category_fun_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="fun"
+                    android:background="@drawable/category_button"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <Button
+                    android:id="@+id/category_other_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="other"
+                    android:background="@drawable/category_button"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addExpense"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="28dp"
+                android:paddingLeft="28dp"
+                android:text="@string/addExpense"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_button_fill" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
