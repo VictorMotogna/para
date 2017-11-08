@@ -54,6 +54,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/total_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="total expense: "
@@ -145,24 +146,43 @@
                     android:id="@+id/category_other_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="other"
+                    android:text="clothes"
                     android:background="@drawable/category_button"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:textColor="@color/colorPrimary"/>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/addExpense"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="28dp"
-                android:paddingLeft="28dp"
-                android:text="@string/addExpense"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/rounded_button_fill" />
+                android:layout_marginBottom="12dp">
+
+                <Button
+                    android:id="@+id/addExpense"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="28dp"
+                    android:paddingLeft="28dp"
+                    android:text="@string/addExpense"
+                    android:background="@drawable/rounded_button_fill"
+                    android:layout_marginRight="12dp"/>
+
+                <Button
+                    android:id="@+id/viewExpenses"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="28dp"
+                    android:paddingLeft="28dp"
+                    android:text="@string/viewExpenses"
+                    android:background="@drawable/rounded_button_fill" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

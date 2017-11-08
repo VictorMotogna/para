@@ -24,7 +24,9 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by victormotogna on 10/29/17.
@@ -63,9 +65,13 @@ public class UserProfileActivity extends AppCompatActivity {
     @ViewById(R.id.categories)
     LinearLayout categories;
 
+    @ViewById(R.id.total_expense)
+    TextView totalExpenseTxt;
+
     private User user;
-    private Expense expense;
     private Category category = null;
+    private List<Expense> expenses = new ArrayList<>();
+    private double totalExpense = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,9 +92,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(profilePhoto);
 
-        if(user.getTotalExpense() == 0.0) {
-
-        }
+        totalExpenseTxt.setText("total expense: " + totalExpense);
     }
 
     @Click(R.id.category_food_button)
@@ -127,7 +131,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Click(R.id.category_other_button)
     @UiThread
     public void selectOtherCategory() {
-        category = Category.OTHER;
+        category = Category.CLOTHES;
 
         categoryFood.setActivated(false);
         categoryDrinks.setActivated(false);
@@ -139,12 +143,14 @@ public class UserProfileActivity extends AppCompatActivity {
     public void addExpense() {
         String expensename;
         String expensedescription;
-        int expensevalue;
+        int expensevalue = 0;
         Category expensecategory;
         boolean selected = true;
 
         expensecategory = category;
-        expensevalue = Integer.parseInt(expenseValue.getText().toString());
+        if(!expenseValue.getText().toString().equals("") || !expenseValue.getText().toString().equals(null)) {
+            expensevalue = Integer.parseInt(expenseValue.getText().toString());
+        }
         expensename = expenseName.getText().toString();
         expensedescription = expenseDescription.getText().toString();
 
@@ -157,16 +163,21 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
 
-        if(expensecategory.toString() == null || expensecategory.toString().equals("")) {
+        if(expensecategory.toString().equals(null) || expensecategory.toString().equals("")) {
             selected = false;
         }
 
-        if(expensevalue == 0) {
+        if(expenseValue.getText().toString().equals("") || expenseValue.getText().toString().equals(null)) {
             selected = false;
         }
 
         if(selected) {
             Expense expense = new Expense(expensename, expensevalue, expensecategory, expensedescription, new Date());
+            expenses.add(expense);
+            totalExpenseTxt.setText("total expense: " + totalExpense);
+            for(Expense exp: expenses) {
+                totalExpense += exp.getValue();
+            }
         } else {
             Toast.makeText(this, "You must complete expense", Toast.LENGTH_SHORT).show();
         }
@@ -174,6 +185,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Click(R.id.sign_out)
     public void signOut() {
+        Intent intent = new Intent(UserProfileActivity.this, LandingActivity_.class);
+        startActivity(intent);
+    }
+
+    @Click(R.id.viewExpenses)
+    public void viewExpenses() {
         Intent intent = new Intent(UserProfileActivity.this, LandingActivity_.class);
         startActivity(intent);
     }

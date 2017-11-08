@@ -1,12 +1,13 @@
 package com.example.victormotogna.para.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by victormotogna on 10/16/17.
  */
 
-public class Expense {
+public class Expense implements Serializable {
     // TODO: 10/16/17 implement ormlite for persistance
 
     public String name;
