@@ -3,6 +3,7 @@ package com.example.victormotogna.para.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -191,7 +193,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Click(R.id.viewExpenses)
     public void viewExpenses() {
-        Intent intent = new Intent(UserProfileActivity.this, LandingActivity_.class);
+        Intent intent = new Intent(UserProfileActivity.this, ExpensesActivity_.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("expenses", (Serializable) expenses);
+        intent.putExtras(bundle);
+
         startActivity(intent);
     }
 

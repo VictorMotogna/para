@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <EditText
+        android:id="@+id/ru_expense_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textAlignment="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/ru_expense_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="value"
+        android:textAlignment="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/ru_expense_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="description"
+        android:textAlignment="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="number"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/category_food_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="food"
+            android:background="@drawable/category_button"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/category_drinks_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="drinks"
+            android:background="@drawable/category_button"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/category_fun_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fun"
+            android:background="@drawable/category_button"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/category_other_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="clothes"
+            android:background="@drawable/category_button"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="-24dp">
+
+        <Button
+            android:id="@+id/save_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_stroke_primary"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:text="save"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="12dp"/>
+
+        <Button
+            android:id="@+id/send_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_stroke_primary"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:text="tell others"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</LinearLayout>
