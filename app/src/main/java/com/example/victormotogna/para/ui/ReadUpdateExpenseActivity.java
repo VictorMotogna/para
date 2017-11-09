@@ -137,6 +137,7 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         boolean selected = true;
 
         expensecategory = category;
+
         if(!expenseCost.getText().toString().equals("") || !expenseCost.getText().toString().equals(null)) {
             expenseValue = Integer.parseInt(expenseCost.getText().toString());
         }
@@ -162,8 +163,8 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         }
 
         if(selected) {
-            Expense expense = new Expense(expensename, expenseValue, expensecategory, expensedescription, new Date());
-            expenses.add(expense);
+            Expense expense2 = new Expense(expensename, expenseValue, expensecategory, expensedescription, new Date());
+            expenses.add(expense2);
         } else {
             Toast.makeText(this, "You must complete expense", Toast.LENGTH_SHORT).show();
         }

@@ -24,7 +24,7 @@ public class Expense implements Serializable {
         this.date = date;
     }
 
-    public double getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -62,6 +62,18 @@ public class Expense implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o instanceof Expense)
+        {
+            Expense c = (Expense) o;
+            if ( this.name.equals(c.name) && this.category.equals(c.category) && this.value == c.value && this.description.equals(c.description) ) //whatever here
+                return true;
+        }
+        return false;
     }
 
     @Override
