@@ -93,15 +93,17 @@
         android:id="@+id/calendarView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginTop="-16dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleX="0.95"
+        android:scaleY="0.95"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="-24dp">
+        android:layout_marginTop="-4dp">
 
         <Button
             android:id="@+id/save_update"
@@ -122,6 +124,17 @@
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
             android:text="tell others"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="12dp"/>
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_stroke_primary"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:text="delete"
             android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
