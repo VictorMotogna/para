@@ -1,16 +1,22 @@
 package com.example.victormotogna.para.ui;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.victormotogna.para.R;
 import com.example.victormotogna.para.dal.AppDatabase;
+import com.example.victormotogna.para.model.Category;
 import com.example.victormotogna.para.model.Expense;
 import com.example.victormotogna.para.utils.expense.ExpenseAdapter;
 
@@ -47,6 +53,38 @@ public class ExpensesActivity extends AppCompatActivity {
         expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
     }
 
+    public void deleteExpense(Expense expense) {
+        expenses.remove(expense);
+        AppDatabase.getExpenseAppDatabase(this).expenseDao().delete(expense);
+//        notifyDeletion(expense);
+        expenseAdapter.notifyDataSetChanged();
+    }
+
+    public void notifyDeletion(Expense expense) {
+        int icon = R.drawable.ic_para;
+
+        if(expense.category == Category.DRINKS) {
+            icon = R.drawable.ic_category_drinks;
+        } else if(expense.category == Category.FOOD) {
+            icon = R.drawable.ic_category_food;
+        } else if(expense.category == Category.CLOTHES) {
+            icon = R.drawable.ic_category_clothes;
+        } else if(expense.category == Category.FUN) {
+            icon = R.drawable.ic_category_fun;
+        }
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this, "default")
+                        .setSmallIcon(icon)
+                        .setContentTitle("Expense deleted")
+                        .setContentText("You deleted expense: " + expense.name);
+
+        int mNotificationId = 001;
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(mNotificationId, mBuilder.build());
+    }
+
     @AfterViews
     public void setupViews() {
         allExpenses.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -70,6 +108,29 @@ public class ExpensesActivity extends AppCompatActivity {
 
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        expenseAdapter.setLongClickListener(new ExpenseAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClicked(int position, final Expense expense) {
+                MaterialDialog dialog = new MaterialDialog.Builder(ExpensesActivity.this)
+                        .title("Delete expense?")
+                        .positiveText("Yes")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                deleteExpense(expense);
+                            }
+                        })
+                        .negativeText("No")
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 

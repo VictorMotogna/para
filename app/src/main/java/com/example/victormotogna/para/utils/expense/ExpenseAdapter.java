@@ -24,6 +24,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ItemView
     private Context context;
     private List<Expense> expenses;
     private OnItemClickListener listener;
+    private OnItemLongClickListener longClickListener;
 
     public ExpenseAdapter(Context context, List<Expense> expenses) {
         this.context = context;
@@ -62,6 +63,17 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ItemView
                 }
             }
         });
+
+        holder.root.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View view) {
+                if(longClickListener != null) {
+                    longClickListener.onItemLongClicked(position, expense);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -73,8 +85,16 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ItemView
         this.listener = listener;
     }
 
+    public void setLongClickListener(OnItemLongClickListener listener) {
+        this.longClickListener = listener;
+    }
+
     public interface OnItemClickListener {
         void onItemClicked(int position, Expense expense);
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClicked(int position, Expense expense);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

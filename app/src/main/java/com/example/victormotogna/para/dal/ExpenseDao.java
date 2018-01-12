@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.victormotogna.para.model.Expense;
 
@@ -24,11 +25,14 @@ public interface ExpenseDao {
     @Query("SELECT * FROM Expense where category LIKE  :category")
     Expense findByCategory(String category);
 
-    @Query("SELECT COUNT(*) from Expense")
+    @Query("SELECT COUNT(*) from expense")
     int countExpenses();
 
     @Insert
     void insertAll(Expense... Expenses);
+
+    @Update
+    void update(Expense expense);
 
     @Delete
     void delete(Expense Expense);

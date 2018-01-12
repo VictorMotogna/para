@@ -2,24 +2,34 @@ package com.example.victormotogna.para.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.victormotogna.para.R;
+import com.example.victormotogna.para.dal.AppDatabase;
 import com.example.victormotogna.para.model.Category;
 import com.example.victormotogna.para.model.Expense;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +67,9 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
 
     @ViewById(R.id.calendarView)
     CalendarView calendarView;
+
+    @ViewById(R.id.line_chart)
+    LineChart chart;
 
     private Category category = null;
 
@@ -129,6 +142,21 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
             selectOtherCategory();
         }
 
+        List<Entry> expenseChartList = new ArrayList<>();
+
+        for(Expense xpns: expenses) {
+            expenseChartList.add(new Entry(((float) xpns.getId()), (float) xpns.getValue()));
+        }
+
+        LineDataSet dataSet = new LineDataSet(expenseChartList, "Priced compared to other expenses");
+        dataSet.setColor(R.color.colorAccentDark);
+
+        chart.setData(new LineData(dataSet));
+
+        Description description = new Description();
+        description.setText(expense.getName());
+        chart.setDescription(description);
+
         calendarView.setDate(expense.getDate().getTime());
     }
 
@@ -141,6 +169,7 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         Category expensecategory;
         int expenseValue = 0;
         boolean selected = true;
+        final Date[] expensedate = new Date[1];
 
         expensecategory = category;
 
@@ -168,8 +197,18 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
             selected = false;
         }
 
+        expensedate[0] = new Date(calendarView.getDate());
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                expensedate[0] = new Date(i, i1, i2);
+            }
+        });
+
         if(selected) {
-            Expense expense2 = new Expense(expensename, expenseValue, expensecategory, expensedescription, new Date());
+            Expense expense2 = new Expense(expensename, expenseValue, expensecategory, expensedescription, expensedate[0]);
+            AppDatabase.getExpenseAppDatabase(this).expenseDao().update(expense2);
             expenses.add(expense2);
         } else {
             Toast.makeText(this, "You must complete expense", Toast.LENGTH_SHORT).show();
@@ -251,5 +290,16 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
