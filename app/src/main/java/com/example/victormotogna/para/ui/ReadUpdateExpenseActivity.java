@@ -1,7 +1,6 @@
 package com.example.victormotogna.para.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -27,7 +26,7 @@ import java.util.List;
  * Created by victormotogna on 11/9/17.
  */
 
-@EActivity(R.layout.activity_read_update_expense)
+@EActivity(R.layout.activity_read_update_delete_expense)
 public class ReadUpdateExpenseActivity extends AppCompatActivity {
 
     private List<Expense> expenses;
@@ -176,6 +175,7 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         intent.putExtras(bundle);
 
         startActivity(intent);
+        finish();
     }
 
     @Click(R.id.send_mail)
@@ -230,5 +230,19 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_TEXT, expense.toString());
         emailIntent.setType("text/html");
         startActivity(emailIntent);
+    }
+
+    @Click(R.id.delete)
+    public void deleteExpense() {
+        expenses.remove(expense);
+
+        Intent intent = new Intent(ReadUpdateExpenseActivity.this, ExpensesActivity_.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("expenses", (Serializable) expenses);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+        finish();
     }
 }

@@ -8,7 +8,6 @@ import java.util.Date;
  */
 
 public class Expense implements Serializable {
-    // TODO: 10/16/17 implement ormlite for persistance
 
     public String name;
     public int value;
