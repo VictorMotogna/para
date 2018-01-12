@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.victormotogna.para.R;
+import com.example.victormotogna.para.dal.AppDatabase;
 import com.example.victormotogna.para.model.Category;
 import com.example.victormotogna.para.model.Expense;
 import com.example.victormotogna.para.model.User;
@@ -88,11 +89,11 @@ public class UserProfileActivity extends AppCompatActivity {
     public void setupViews() {
         userName.setText(user.getName());
 
-        Picasso.with(getApplicationContext())
-                .load(Uri.parse(user.getPhotoLocation()))
-                .fit()
-                .centerCrop()
-                .into(profilePhoto);
+//        Picasso.with(getApplicationContext())
+//                .load(Uri.parse(user.getPhotoLocation()))
+//                .fit()
+//                .centerCrop()
+//                .into(profilePhoto);
 
         totalExpenseTxt.setText("total expense: " + totalExpense);
     }
@@ -141,6 +142,11 @@ public class UserProfileActivity extends AppCompatActivity {
         categoryOther.setActivated(true);
     }
 
+    public Expense addExpenseToDb(final AppDatabase db, Expense expense) {
+        db.expenseDao().insertAll(expense);
+        return expense;
+    }
+
     @Click(R.id.addExpense)
     public void addExpense() {
         String expensename;
@@ -176,6 +182,9 @@ public class UserProfileActivity extends AppCompatActivity {
         if(selected) {
             Expense expense = new Expense(expensename, expensevalue, expensecategory, expensedescription, new Date());
             expenses.add(expense);
+
+            addExpenseToDb(AppDatabase.getExpenseAppDatabase(this), expense);
+
             totalExpenseTxt.setText("total expense: " + totalExpense);
             for(Expense exp: expenses) {
                 totalExpense += exp.getValue();
@@ -194,10 +203,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @Click(R.id.viewExpenses)
     public void viewExpenses() {
         Intent intent = new Intent(UserProfileActivity.this, ExpensesActivity_.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("expenses", (Serializable) expenses);
-        intent.putExtras(bundle);
 
         startActivity(intent);
     }

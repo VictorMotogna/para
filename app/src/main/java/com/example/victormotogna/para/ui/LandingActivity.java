@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.victormotogna.para.R;
+import com.example.victormotogna.para.dal.AppDatabase;
 import com.example.victormotogna.para.model.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -65,13 +66,20 @@ public class LandingActivity extends AppCompatActivity {
         }
     }
 
+    private static User addUserToDb(final AppDatabase db, User user) {
+        db.userDao().insertAll(user);
+        return user;
+    }
+
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d("Signedin", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
-            goToProfile(new User(acct.getDisplayName(), acct.getEmail(), acct.getEmail(), acct.getPhotoUrl().toString()));
+            User user = new User(acct.getDisplayName(), acct.getEmail());
+            user = addUserToDb(AppDatabase.getUserAppDatabase(this), user);
+            goToProfile(user);
         } else {
             // could not sign in, restarting activity
             restartActivity();

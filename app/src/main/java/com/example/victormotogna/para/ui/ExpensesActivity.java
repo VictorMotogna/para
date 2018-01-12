@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.victormotogna.para.R;
+import com.example.victormotogna.para.dal.AppDatabase;
 import com.example.victormotogna.para.model.Expense;
 import com.example.victormotogna.para.utils.expense.ExpenseAdapter;
 
@@ -43,8 +44,7 @@ public class ExpensesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         expenses = new ArrayList<>();
 
-        Intent intent = getIntent();
-        expenses = ((List<Expense>) intent.getSerializableExtra("expenses"));
+        expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
     }
 
     @AfterViews
