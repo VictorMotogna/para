@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.victormotogna.para.R;
 import com.example.victormotogna.para.model.Expense;
@@ -31,6 +33,9 @@ public class ExpensesActivity extends AppCompatActivity {
     @ViewById(R.id.rv_all_expenses)
     RecyclerView allExpenses;
 
+    @ViewById(R.id.no_expenses)
+    TextView noExpenses;
+
     private ExpenseAdapter expenseAdapter;
 
     @Override
@@ -47,6 +52,12 @@ public class ExpensesActivity extends AppCompatActivity {
         allExpenses.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         expenseAdapter = new ExpenseAdapter(this, expenses);
 
+        if(expenses.size() == 0) {
+            noExpenses.setVisibility(View.VISIBLE);
+        } else {
+            noExpenses.setVisibility(View.GONE);
+        }
+
         expenseAdapter.setListener(new ExpenseAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int position, Expense expense) {
@@ -58,6 +69,7 @@ public class ExpensesActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
 
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +54,9 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
 
     @ViewById(R.id.category_other_button)
     Button categoryOther;
+
+    @ViewById(R.id.calendarView)
+    CalendarView calendarView;
 
     private Category category = null;
 
@@ -123,6 +128,8 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         } else if(expense.getCategory().equals(Category.CLOTHES)) {
             selectOtherCategory();
         }
+
+        calendarView.setDate(expense.getDate().getTime());
     }
 
     @Click(R.id.save_update)
