@@ -1,4 +1,4 @@
-package com.example.victormotogna.para.dal;
+package com.example.victormotogna.para.dal.local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -31,9 +31,9 @@ public interface ExpenseDao {
     @Insert
     void insertAll(Expense... Expenses);
 
-    @Update
-    void update(Expense expense);
+    @Insert
+    void insert(Expense expense);
 
     @Delete
-    void delete(Expense Expense);
+    void delete(Expense expense);
 }

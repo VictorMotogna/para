@@ -1,9 +1,6 @@
-package com.example.victormotogna.para.dal;
+package com.example.victormotogna.para.dal.local;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
 import android.arch.persistence.room.*;
-import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
 import com.example.victormotogna.para.model.Expense;

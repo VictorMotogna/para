@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.victormotogna.para.R;
-import com.example.victormotogna.para.dal.AppDatabase;
+import com.example.victormotogna.para.dal.local.AppDatabase;
 import com.example.victormotogna.para.model.Category;
 import com.example.victormotogna.para.model.Expense;
 import com.github.mikephil.charting.charts.LineChart;
@@ -21,16 +21,17 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
 
     private List<Expense> expenses;
     private Expense expense;
+    private DatabaseReference mDatabase;
 
     @ViewById(R.id.ru_expense_name)
     EditText expenseName;
@@ -160,6 +162,21 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         calendarView.setDate(expense.getDate().getTime());
     }
 
+    public void editExpenseDb(Expense expense2) {
+        AppDatabase.getExpenseAppDatabase(this).expenseDao().delete(expense);
+        AppDatabase.getExpenseAppDatabase(this).expenseDao().delete(expense2);
+        expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
+        AppDatabase.getExpenseAppDatabase(this).expenseDao().insert(expense2);
+        expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
+    }
+
+    @Background
+    public void editExpenseRemote(Expense exp) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("expenses");
+        mDatabase.child(String.valueOf(expense.getId())).removeValue();
+        mDatabase.child(String.valueOf(exp.getId())).removeValue();
+    }
+
     @Click(R.id.save_update)
     public void saveUpdate() {
         expenses.remove(expense);
@@ -208,8 +225,8 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
 
         if(selected) {
             Expense expense2 = new Expense(expensename, expenseValue, expensecategory, expensedescription, expensedate[0]);
-            AppDatabase.getExpenseAppDatabase(this).expenseDao().update(expense2);
-            expenses.add(expense2);
+            editExpenseDb(expense2);
+            editExpenseRemote(expense2);
         } else {
             Toast.makeText(this, "You must complete expense", Toast.LENGTH_SHORT).show();
         }
@@ -217,7 +234,6 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         Intent intent = new Intent(ReadUpdateExpenseActivity.this, ExpensesActivity_.class);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("expenses", (Serializable) expenses);
         intent.putExtras(bundle);
 
         startActivity(intent);

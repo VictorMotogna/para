@@ -1,4 +1,4 @@
-package com.example.victormotogna.para.dal;
+package com.example.victormotogna.para.dal.local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

@@ -40,6 +40,10 @@ public class Expense implements Serializable {
         this.date = date;
     }
 
+    public Expense() {
+
+    }
+
     public int getId() {
         return id;
     }

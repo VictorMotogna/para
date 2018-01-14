@@ -11,7 +11,7 @@
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="@dimen/photo_size">
 
             <ImageView
                 android:id="@+id/profile_photo"
@@ -45,23 +45,6 @@
                 android:textColor="#fff"/>
 
         </FrameLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/total_expense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="total expense: "
-                android:textSize="28dp"
-                android:textColor="#fff"/>
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/categories"

@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.victormotogna.para.R;
-import com.example.victormotogna.para.dal.AppDatabase;
+import com.example.victormotogna.para.dal.local.AppDatabase;
 import com.example.victormotogna.para.model.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -16,8 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -31,6 +29,7 @@ public class LandingActivity extends AppCompatActivity {
 
     private GoogleApiClient mGoogleApiClient;
     private int RC_SIGN_IN = 13;
+    private String photoUrl = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +76,9 @@ public class LandingActivity extends AppCompatActivity {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
+            photoUrl = acct.getPhotoUrl().toString();
+
+
             User user = new User(acct.getDisplayName(), acct.getEmail());
             user = addUserToDb(AppDatabase.getUserAppDatabase(this), user);
             goToProfile(user);
@@ -96,6 +98,7 @@ public class LandingActivity extends AppCompatActivity {
         Intent intent = new Intent(LandingActivity.this, UserProfileActivity_.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("user", user);
+        bundle.putString("photo", photoUrl);
         bundle.putString("caller", "GoogleSignIn");
         intent.putExtras(bundle);
         startActivity(intent);

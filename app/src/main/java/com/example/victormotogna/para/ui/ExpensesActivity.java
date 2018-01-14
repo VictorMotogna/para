@@ -15,17 +15,19 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.victormotogna.para.R;
-import com.example.victormotogna.para.dal.AppDatabase;
+import com.example.victormotogna.para.dal.local.AppDatabase;
 import com.example.victormotogna.para.model.Category;
 import com.example.victormotogna.para.model.Expense;
 import com.example.victormotogna.para.utils.expense.ExpenseAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,20 +46,24 @@ public class ExpensesActivity extends AppCompatActivity {
     TextView noExpenses;
 
     private ExpenseAdapter expenseAdapter;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        expenses = new ArrayList<>();
-
         expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
     }
 
-    public void deleteExpense(Expense expense) {
-        expenses.remove(expense);
+    public void deleteExpenseDb(Expense expense) {
         AppDatabase.getExpenseAppDatabase(this).expenseDao().delete(expense);
 //        notifyDeletion(expense);
-        expenseAdapter.notifyDataSetChanged();
+        expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
+        setupViews();
+    }
+
+    public void deleteExpenseRemote(Expense expense) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("expenses");
+        mDatabase.child(String.valueOf(expense.getId())).removeValue();
     }
 
     public void notifyDeletion(Expense expense) {
@@ -85,8 +91,19 @@ public class ExpensesActivity extends AppCompatActivity {
         notificationManager.notify(mNotificationId, mBuilder.build());
     }
 
+    @Background
+    public void syncExpensesRemote(Expense expense) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("expenses");
+
+        mDatabase.child(String.valueOf(expense.getId())).setValue(expense);
+    }
+
     @AfterViews
     public void setupViews() {
+        for(Expense expense: expenses) {
+            syncExpensesRemote(expense);
+        }
+
         allExpenses.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         expenseAdapter = new ExpenseAdapter(this, expenses);
 
@@ -120,7 +137,8 @@ public class ExpensesActivity extends AppCompatActivity {
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                deleteExpense(expense);
+                                deleteExpenseDb(expense);
+                                deleteExpenseRemote(expense);
                             }
                         })
                         .negativeText("No")
