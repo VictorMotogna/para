@@ -197,6 +197,10 @@ public class UserProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "You must complete expense", Toast.LENGTH_SHORT).show();
         }
+
+        expenseName.setText("");
+        expenseValue.setText("");
+        expenseDescription.setText("");
     }
 
     @Click(R.id.sign_out)
@@ -208,7 +212,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @Click(R.id.viewExpenses)
     public void viewExpenses() {
         Intent intent = new Intent(UserProfileActivity.this, ExpensesActivity_.class);
-
         startActivity(intent);
     }
 

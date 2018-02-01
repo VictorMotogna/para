@@ -36,4 +36,7 @@ public interface ExpenseDao {
 
     @Delete
     void delete(Expense expense);
+
+    @Delete
+    void deleteAll(Expense... expenses);
 }

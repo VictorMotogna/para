@@ -150,7 +150,7 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
             expenseChartList.add(new Entry(((float) xpns.getId()), (float) xpns.getValue()));
         }
 
-        LineDataSet dataSet = new LineDataSet(expenseChartList, "Priced compared to other expenses");
+        LineDataSet dataSet = new LineDataSet(expenseChartList, "Price compared to other expenses");
         dataSet.setColor(R.color.colorAccentDark);
 
         chart.setData(new LineData(dataSet));
@@ -168,13 +168,6 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
         AppDatabase.getExpenseAppDatabase(this).expenseDao().insert(expense2);
         expenses = AppDatabase.getExpenseAppDatabase(this).expenseDao().getAll();
-    }
-
-    @Background
-    public void editExpenseRemote(Expense exp) {
-        mDatabase = FirebaseDatabase.getInstance().getReference("expenses");
-        mDatabase.child(String.valueOf(expense.getId())).removeValue();
-        mDatabase.child(String.valueOf(exp.getId())).removeValue();
     }
 
     @Click(R.id.save_update)
@@ -226,7 +219,6 @@ public class ReadUpdateExpenseActivity extends AppCompatActivity {
         if(selected) {
             Expense expense2 = new Expense(expensename, expenseValue, expensecategory, expensedescription, expensedate[0]);
             editExpenseDb(expense2);
-            editExpenseRemote(expense2);
         } else {
             Toast.makeText(this, "You must complete expense", Toast.LENGTH_SHORT).show();
         }
